@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+<!-- Register -->
+<insert id="register">
+INSERT INTO FYP_MEMBER( USERID, USERPW, USERROLE )
+VALUES (#{userId}, #{userPw}, #{userRole} )	
+</insert>
+
+<!-- Login -->
+<select id="login" resultType="com.fyp.vo.MemberVO">
+SELECT USERID, USERPW, USERROLE
+FROM FYP_MEMBER
+WHERE USERID = #{userId} 
+<!-- AND USERPW = #{userPw} -->
+</select>
+
+<!-- Modify -->
+<update id="memberUpdate">
+UPDATE FYP_MEMBER SET
+<!-- USERPW = #{userPw},-->
+USERROLE = #{userRole}
+WHERE USERID = #{userId}
+</update>
+
+<!-- Delete -->
+<delete id="memberDelete">
+DELETE FROM FYP_MEMBER
+WHERE USERID = #{userId} 
+<!-- AND USERPW = #{userPw} -->
+</delete>
+
+<!-- Check the Password -->
+<select id="passChk" resultType="int">
+SELECT COUNT(*) FROM FYP_MEMBER
+WHERE USERID = #{userId} AND USERPW = #{userPw}
+</select>
+
+<!-- ID Duplicate Check  -->
+<select id="idChk" resultType="int">
+SELECT COUNT(*) FROM FYP_MEMBER
+WHERE USERID = #{userId}
+</select>
+
+
+<select id="listPage" resultType="com.fyp.vo.MemberVO" parameterType="com.fyp.vo.SearchCriteria">
+SELECT USERID, USERPW, USERROLE, REGDATE
+FROM FYP_MEMBER
+</select>
+
+<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+		<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+		<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+		<if test="searchType =='tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+	</if>
+</sql>
+
+<!-- Save Posts -->
+<insert id="savePost">
+INSERT INTO FYP_SAVE_BOARD (USERID, BNO)
+VALUES (#{userId}, #{bno})
+</insert>
+
+<!-- Existing Saved Posts -->
+<select id="savePostChk" resultType="int" parameterType="com.fyp.vo.MemberBoardVO">
+SELECT count(*) FROM FYP_SAVE_BOARD
+WHERE USERID = #{userId} AND BNO = #{bno}
+</select>
+
+<!-- Report Posts -->
+<insert id="reportPost">
+INSERT INTO FYP_REPORT_BOARD (USERID, BNO, REASON)
+VALUES (#{userId}, #{bno}, #{reason})
+</insert>
+
+<!-- Existing Reported Posts -->
+<select id="reportPostChk" resultType="int" parameterType="com.fyp.vo.MemberBoardVO">
+SELECT count(*) FROM FYP_REPORT_BOARD
+WHERE USERID = #{userId} AND BNO = #{bno}
+</select>
+
+<!-- Select The Saved Posts -->
+<select id="savedPostList" resultType="com.fyp.vo.BoardVO" parameterType="com.fyp.vo.MemberVO">
+SELECT FYP_BOARD.*
+FROM FYP_BOARD
+INNER JOIN FYP_SAVE_BOARD ON FYP_BOARD.BNO = FYP_SAVE_BOARD.BNO
+WHERE FYP_SAVE_BOARD.USERID = #{userId}
+ORDER BY FYP_BOARD.BNO DESC
+</select>
+
+<!-- Select The Reported Posts -->
+<select id="reportedPostList" resultType="com.fyp.vo.MemberBoardReportVO">
+SELECT FYP_REPORT_BOARD.USERID, FYP_REPORT_BOARD.REASON, FYP_BOARD.* 
+FROM FYP_BOARD
+RIGHT JOIN FYP_REPORT_BOARD ON FYP_BOARD.BNO = FYP_REPORT_BOARD.BNO
+ORDER BY FYP_BOARD.BNO DESC
+</select>
+
+<!-- Select Your Posts -->
+<select id="yourPostList" resultType="com.fyp.vo.BoardVO" parameterType="com.fyp.vo.MemberVO">
+SELECT *
+FROM FYP_BOARD
+WHERE WRITER = #{userId}
+ORDER BY BNO DESC
+</select>
+
+
+
+</mapper>
+  

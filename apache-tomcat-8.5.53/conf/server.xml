@@ -156,9 +156,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="C:\FinalYearProject\apache-tomcat-8.5.53\wtpwebapps\finalyearProject" path="" reloadable="true" source="org.eclipse.jst.jee.server:finalyearProject">
-      	<ResourceLink global="jdbc/Oracle11g" name="jdbc/Oracle11g" type="javax.sql.DataSource"/>
-      </Context></Host>
+      <Context docBase="C:\FinalYearProject\apache-tomcat-8.5.53\wtpwebapps\finalyearProject" path="" reloadable="true" source="org.eclipse.jst.jee.server:finalyearProject"/></Host>
     </Engine>
   </Service>
 </Server>

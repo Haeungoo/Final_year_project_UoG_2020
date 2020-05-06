@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageMapper">
+
+
+<!-- insert the message -->
+<insert id="writeMessage" parameterType="com.fyp.vo.MessageVO">
+INSERT INTO FYP_MESSAGE (MNO, CNO, CONTENT, SENDER)
+VALUES (HAEUN_MESSAGE_SEQ.NEXTVAL, #{cno}, #{content}, #{user1})
+</insert>
+
+<!-- select the message -->
+<select id="readMessages" resultType="com.fyp.vo.MessageVO">
+SELECT MNO, CONTENT, SENDER, SENDDATE
+FROM FYP_MESSAGE
+WHERE CNO = #{cno}
+</select>
+
+<!-- select the message -->
+<select id="readMessagesSince" resultType="com.fyp.vo.MessageVO">
+SELECT MNO, CONTENT, SENDDATE
+FROM FYP_MESSAGE
+WHERE SENDER = #{sender}
+AND SENDDATE > #{date}
+</select>
+
+</mapper>

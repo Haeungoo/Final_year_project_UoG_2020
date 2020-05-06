@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commentMapper">
+
+<!-- Read the comment-->
+<select id="readComment" resultType="com.fyp.vo.CommentVO">
+   	SELECT RNO, CONTENT, WRITER, REGDATE
+   	FROM FYP_COMMENT
+   	WHERE BNO = #{bno}
+</select>
+
+<!-- Insert the comment -->
+<insert id="writeComment">
+INSERT INTO FYP_COMMENT (BNO, RNO, CONTENT, WRITER)
+VALUES (#{bno}, FYP_COMMENT_SEQ.NEXTVAL, #{content}, #{writer})
+</insert>
+
+<!-- Update the comment -->
+<update id="updateComment" parameterType="com.fyp.vo.CommentVO">
+UPDATE FYP_COMMENT SET CONTENT = #{content}
+WHERE RNO = #{rno}
+</update>
+
+<!-- Delete the comment -->
+<delete id="deleteComment" parameterType="com.fyp.vo.CommentVO">
+DELETE FROM FYP_COMMENT WHERE RNO = #{rno} 
+</delete>
+
+<!-- Select the comment -->
+<select id="selectComment" resultType="com.fyp.vo.CommentVO">
+SELECT BNO,RNO,CONTENT,WRITER,REGDATE
+FROM FYP_COMMENT
+WHERE RNO = #{rno}
+</select>
+
+</mapper>

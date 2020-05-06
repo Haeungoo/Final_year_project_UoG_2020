@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatMapper">
+
+<!-- Check new chat -->
+<select id="newChat" resultType="int">
+SELECT COUNT(*)
+FROM FYP_CHAT
+WHERE user1 = #{user1} AND user2 = #{user2}
+</select>
+
+<!-- insert the start message -->
+<insert id="insert">
+INSERT INTO FYP_CHAT (CNO, USER1, USER2)
+VALUES (HAEUN_CHAT_SEQ.NEXTVAL, #{user1}, #{user2})
+</insert>
+
+
+<!-- select the chatList -->
+<select id="getChat" resultType="com.fyp.vo.ChatVO">
+SELECT *
+FROM FYP_CHAT
+WHERE (USER1=#{user1}
+AND USER2=#{user2})
+OR (USER1=#{user2}
+AND USER2=#{user1})
+</select>
+
+
+<!-- select the chatList -->
+<select id="list" resultType="com.fyp.vo.ChatVO">
+SELECT CNO, USER1, USER2
+FROM FYP_CHAT
+WHERE USER1=#{userId}
+OR USER2=#{userId}
+ORDER BY CNO DESC 
+</select>
+
+<!-- read the chat -->
+<select id="read" parameterType="int" resultType="com.fyp.vo.ChatVO">
+SELECT CNO, CONTENT, SENDER, RECEIVER, REGDATE
+FROM FYP_CHAT
+WHERE CNO = #{cno}
+</select>
+
+</mapper>

@@ -3,7 +3,111 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
-<insert id="insert">
-INSERT INTO MP_BOARD(BNO,TITLE,CONTENT,WRITER) VALUES (MP_BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{writer})
+<insert id="insert" parameterType="com.fyp.vo.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+SELECT FYP_BOARD_SEQ.NEXTVAL FROM DUAL
+</selectKey>
+INSERT INTO FYP_BOARD(    BNO 
+				       , TITLE 
+				       , CONTENT 
+				       , WRITER  )
+              VALUES(    #{bno}
+             		   , #{title}
+             		   , #{content}
+             		   , #{writer}  )
 </insert>
+
+<select id="listPage" resultType="com.fyp.vo.BoardVO" parameterType="com.fyp.vo.SearchCriteria">
+SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT, HEART
+FROM ( 
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT, HEART, ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		FROM FYP_BOARD
+		WHERE 1=1
+			<include refid="search"></include>
+) FYP
+WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+ORDER BY BNO DESC
+</select>
+
+
+<select id="listCount" parameterType="com.fyp.vo.SearchCriteria" resultType="int">
+SELECT COUNT(BNO) FROM FYP_BOARD WHERE 1=1
+<include refid="search"></include>
+AND BNO > 0
+</select>
+
+<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+		<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+		<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+		<if test="searchType =='tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+	</if>
+</sql>
+
+<select id="read" parameterType="int" resultType="com.fyp.vo.BoardVO">
+SELECT BNO, TITLE, CONTENT, WRITER, REGDATE FROM FYP_BOARD WHERE BNO = #{bno}
+</select>
+
+<update id="update" parameterType="com.fyp.vo.BoardVO">
+UPDATE FYP_BOARD SET TITLE = #{title}, CONTENT = #{content} WHERE BNO = #{bno}
+</update>
+
+<delete id="delete" parameterType="int">
+DELETE FROM FYP_BOARD WHERE BNO = #{bno}
+</delete>
+
+<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO FYP_FILE(
+			FILE_NO,
+			BNO,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			HAEUN.SEQ_FYP_FILE_NO.NEXTVAL,
+			#{BNO},
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+		)
+</insert>
+
+<!-- Attachment lookup -->
+<select id="selectFileList" parameterType="int" resultType="hashMap">
+SELECT FILE_NO,ORG_FILE_NAME, ROUND(FILE_SIZE/1024,1) AS FILE_SIZE, DEL_GB
+FROM FYP_FILE
+WHERE BNO = #{BNO}
+AND DEL_GB = 'N'  <!-- File Deletion Status  -->
+ORDER BY FILE_NO ASC
+</select>
+
+<!-- Download Attachment -->
+<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+SELECT STORED_FILE_NAME, ORG_FILE_NAME
+FROM FYP_FILE
+WHERE FILE_NO = #{FILE_NO}
+</select>
+
+<!-- Update Attachment -->
+<update id="updateFile" parameterType="hashMap">
+UPDATE FYP_FILE SET
+DEL_GB = 'Y'
+WHERE FILE_NO = #{FILE_NO}
+</update>
+
+<!-- Board View Count -->
+<update id="boardHit" parameterType="int">
+UPDATE FYP_BOARD SET
+HIT = HIT+1
+WHERE BNO = #{bno}
+</update>
+
+<!-- Board Heart Count -->
+<update id="boardHeart" parameterType="int">
+UPDATE FYP_BOARD SET
+HEART = HEART+1
+WHERE BNO = #{bno}
+</update>
+
 </mapper>
