@@ -1,7 +1,10 @@
 package com.fyp.websocket;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -31,8 +34,9 @@ public class ChatEndpoint {
 
         Message message = new Message();
         message.setFrom(username);
-        message.setContent("Connected!");
+        message.setContent("You have entered the chat room!");
         broadcast(message);
+        
     }
 
     @OnMessage
@@ -46,7 +50,7 @@ public class ChatEndpoint {
         chatEndpoints.remove(this);
         Message message = new Message();
         message.setFrom(users.get(session.getId()));
-        message.setContent("Disconnected!");
+        message.setContent("You have left the chat room!");
         broadcast(message);
     }
 

@@ -190,6 +190,9 @@ $(document).ready( function() {
 
 	// comment 
 	$(".commentWriteBtn").on("click", function() {
+		if($(".invalid-feedback").is(":visible")){
+			return false;
+		}
 		var formObj = $("form[name='commentForm']");
 		formObj.attr("action", "/board/commentWrite");
 		formObj.submit();
@@ -303,9 +306,8 @@ function closeForm() {
 					<form class="form-container">
 						<input type="hidden" value="${member.userId}" name="userId" readonly="readonly">
 						<input type="hidden" value="${read.bno}" name="bno" readonly="readonly">						
-						<label for="reason"><b>Reason</b></label> <input type="text"
-							placeholder="Please write the reason of reporting" id="reason" name="reason">
-
+						<label for="reason"><b>Reason</b></label> 
+						<input type="text" placeholder="Please write down the reason for reporting the post" id="reason" name="reason">
 						<button type="button" class="report_btn btn">Send</button>
 						<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
 					</form>
@@ -338,14 +340,13 @@ function closeForm() {
 				</ol>
 			</div>
 
-			<form name="commentForm" method="post" class="form-horizontal">
-				<input type="hidden" id="bno" name="bno" value="${read.bno}" /> <input
-					type="hidden" id="page" name="page" value="${scri.page}" /> <input
-					type="hidden" id="perPageNum" name="perPageNum"
-					value="${scri.perPageNum}" /> <input type="hidden" id="searchType"
-					name="searchType" value="${scri.searchType}" /> <input
-					type="hidden" id="keyword" name="keyword" value="${scri.keyword}" />
-
+			<form name="commentForm" method="post" class="was-validated">
+				<input type="hidden" id="bno" name="bno" value="${read.bno}" /> 
+				<input type="hidden" id="page" name="page" value="${scri.page}" /> 
+				<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}" /> 
+				<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}" /> 
+				<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}" />
+				
 				<div class="form-group">
 					<label for="writer" class="col-sm-2 control-label">Comment writer</label>
 					<div class="col-sm-10">
@@ -356,8 +357,9 @@ function closeForm() {
 				<div class="form-group">
 					<label for="content" class="col-sm-2 control-label">Comment content</label>
 					<div class="col-sm-10">
-						<input type="text" id="content" name="content"
-							class="form-control" />
+						<input type="text" id="content" name="content" placeholder="Enter the comment" class="form-control" required/>
+						<div class="valid-feedback">Valid.</div>
+						<div class="invalid-feedback">Insert the content.</div>
 					</div>
 				</div>
 

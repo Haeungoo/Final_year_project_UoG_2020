@@ -7,23 +7,27 @@
 
 <!-- insert the message -->
 <insert id="writeMessage" parameterType="com.fyp.vo.MessageVO">
-INSERT INTO FYP_MESSAGE (MNO, CNO, CONTENT, SENDER)
+INSERT INTO FYP_MESSAGE (MNO, CNO, CONTENT, USER1)
 VALUES (HAEUN_MESSAGE_SEQ.NEXTVAL, #{cno}, #{content}, #{user1})
 </insert>
 
 <!-- select the message -->
 <select id="readMessages" resultType="com.fyp.vo.MessageVO">
-SELECT MNO, CONTENT, SENDER, SENDDATE
+SELECT MNO, CONTENT, USER1, SENDDATE
 FROM FYP_MESSAGE
 WHERE CNO = #{cno}
+ORDER BY MNO
 </select>
 
 <!-- select the message -->
 <select id="readMessagesSince" resultType="com.fyp.vo.MessageVO">
-SELECT MNO, CONTENT, SENDDATE
+SELECT FYP_MESSAGE.MNO, FYP_MESSAGE.USER1, FYP_MESSAGE.CONTENT, FYP_MESSAGE.SENDDATE
 FROM FYP_MESSAGE
-WHERE SENDER = #{sender}
-AND SENDDATE > #{date}
+INNER JOIN FYP_CHAT
+ON FYP_CHAT.CNO = FYP_MESSAGE.CNO
+WHERE FYP_MESSAGE.CNO = #{cno}
+AND FYP_MESSAGE.MNO > #{mno}
+ORDER BY FYP_MESSAGE.MNO
 </select>
 
 </mapper>

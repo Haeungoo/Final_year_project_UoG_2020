@@ -22,6 +22,7 @@ body{
 }
 #content, #result{
 	height: 200px;
+	width: 800px;
 	border: 1px solid #ccc;
 	padding: 10px;
 	box-shadow: 0 0 10px 0 #bbb;
@@ -69,7 +70,8 @@ button{
 	    <br/>
 		<input class="btn btn-primary" type="button" id="voiceBtn" value="Voice" />
 		<input class="btn btn-secondary" type="button" id="copyBtn" value="Copy and Paste" />	    
-		<div id="result"></div>	  
+		<div id="result">
+		</div>	  
 	    <br/>
 	    <input class="btn btn-success" type="submit" id="sendBtn" value="Send" />
 	    <input class="btn btn-danger" type="button" id="cancelBtn" value="Exit" />
@@ -124,19 +126,6 @@ button{
 			}
 			alert("Scroll the text. Press Control-C to copy text.");
 			
-		};
-		
-		function showInfo(s){
-			if(s) {
-				for(var child = info.firstChild; child; child = child.nextSibling){
-					if(child.style){
-						child.style.display = child.id == s ? 'inline' : 'none';
-					}
-				}
-				info.style.visibility = 'visible';
-			}else{
-				info.style.visibility = 'hidden';
-			}
 		};
 		
 </script>

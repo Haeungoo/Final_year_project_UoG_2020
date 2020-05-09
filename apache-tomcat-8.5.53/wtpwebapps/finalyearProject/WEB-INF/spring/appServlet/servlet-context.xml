@@ -26,16 +26,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<beans:bean id="chatHandler" class="com.chat.handler.ChatWebSocketHandler"/>
-	<websocket:handlers>
-    <websocket:mapping handler="chatHandler" path="/chat" />
-    <websocket:handshake-interceptors>
-    	<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-   	</websocket:handshake-interceptors>
-    <websocket:sockjs />
-	</websocket:handlers>
-	
-	
 	<context:component-scan base-package="com.fyp.controller" />	
 	
 </beans:beans>

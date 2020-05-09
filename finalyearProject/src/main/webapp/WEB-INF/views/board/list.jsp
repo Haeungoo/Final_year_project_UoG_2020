@@ -9,6 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -75,18 +76,9 @@ li {
 		<hr />
 
 <section id="container">
-	<div class="dropdown">
-	<button class="dropbtn">Role</button>
-	<div class="dropdown-content">
-	  <a href="/board/list">Both</a>
-	  <a href="/board/list?role=starter">Silver Starter</a>
-	  <a href="/board/list?role=adopter">Early Adopter</a>
-	  </div>
-	</div>
 	<form role="form" method="get">
 		<table class="table table-hover">
 			<thead>
-				<!--<tr><th>Number</th><th>Title</th><th>Writer</th><th>Date</th></tr>  -->
 				<tr>
 					<th>Title</th>
 					<th>Writer</th>
@@ -97,42 +89,47 @@ li {
 			</thead>
 	
 			<c:forEach items="${list}" var="list">
-			<c:set var="role" value='<%=request.getParameter("role") %>'/>
 				<tr>
 					<!-- <td><c:out value="${list.bno}"/></td> -->
-					<td><a href="/board/readView?bno=${list.bno}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}"><c:out
-								value="${list.title}" /></a></td>
+					<c:if test="${list.bno != 0}">
+					<td>
+						<a href="/board/readView?bno=${list.bno}&page=${scri.page}&perPageNum=${scri.perPageNum}&searchType=${scri.searchType}&keyword=${scri.keyword}&role=${scri.role}"><c:out value="${list.title}"/></a>
+					</td>
 					<c:if test="${member.userId != list.writer}">
 						<td><a href="/chat/chatView?writer=${list.writer}&member=${member.userId}&role=${member.userRole}"><c:out value="${list.writer}" /></a></td>
 					</c:if>
 					<c:if test="${member.userId == list.writer}">
 						<td><c:out value="${list.writer}" /></td>
 					</c:if>
-					<td><fmt:formatDate value="${list.regdate}"
-							pattern="dd-MM-yyyy" /></td>
+					<td><fmt:formatDate value="${list.regdate}" pattern="dd-MM-yyyy" /></td>
 					<td><c:out value="${list.hit}" /></td>
 					<td><c:out value="${list.heart}" /></td>
+					</c:if>
 				</tr>
 			</c:forEach>
+			
 	
 		</table>
 		<div class="search row">
 			<div class="col-xs-2 col-sm-2">
+				<select name="role" class="form-control">
+					<option value="n" <c:out value="${scri.role == null ? 'selected' : ''}"/>>-----</option>
+					<option value="both" <c:out value="${scri.role eq 'both' ? 'selected' : ''}"/>>Both</option>
+					<option value="starter" <c:out value="${scri.role eq 'starter' ? 'selected' : ''}"/>>Starter(Question)</option>
+					<option value="adopter" <c:out value="${scri.role eq 'adopter' ? 'selected' : ''}"/>>Adopter(Solution)</option>
+				</select>
+			</div>
+			<div class="col-xs-2 col-sm-2">	
 				<select name="searchType" class="form-control">
-					<option value="n"
-						<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
-					<option value="t"
-						<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>Title</option>
-					<option value="c"
-						<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>Content</option>
-					<option value="w"
-						<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>Writer</option>
-					<option value="tc"
-						<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>Title+Content</option>
+					<option value="n" <c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+					<option value="t" <c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>Title</option>
+					<option value="c" <c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>Content</option>
+					<option value="w" <c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>Writer</option>
+					<option value="tc" <c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>Title+Content</option>
 				</select>
 			</div>
 	
-			<div class="col-xs-10 col-sm-10">
+			<div class="col-xs-6 col-sm-6">
 				<div class="input-group">
 					<input type="text" name="keyword" id="keywordInput"
 						value="${scri.keyword}" class="form-control" /> <span
@@ -146,9 +143,11 @@ li {
 				$(function() {
 					$('#searchBtn').click(function() {
 						self.location = "list" + '${pageMaker.makeQuery(1)}'
-												+ "&searchType="+ $("select option:selected").val()
-												+ "&keyword=" + encodeURIComponent($('#keywordInput').val());
+												+ "&searchType="+ $("select[name=searchType] option:selected").val()
+												+ "&keyword=" + encodeURIComponent($('#keywordInput').val())
+												+ "&role=" + $("select[name=role] option:selected").val();
 						});
+				
 				});
 			</script>
 	</div>

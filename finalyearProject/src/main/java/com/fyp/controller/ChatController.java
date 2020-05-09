@@ -53,11 +53,18 @@ public class ChatController{
 	}
 	
 	@RequestMapping(value="/chatView2", method=RequestMethod.GET)
-	public void chatView2(Model model, ChatVO chatVO) throws Exception{
+	public void chatView2(Locale locale, Model model, ChatVO chatVO) throws Exception{
 		logger.info("chatView2");
 		logger.info(chatVO.toString());
 		logger.info(messageService.readMessages(chatVO).size()+"");
 		model.addAttribute("messages", messageService.readMessages(chatVO));
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
 		
 	}
 	
@@ -71,19 +78,10 @@ public class ChatController{
 		return true;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/newMessages", method=RequestMethod.POST)
-	public List<MessageVO> chatNewMessages(Long date, ChatVO vo) throws Exception{
-		Date dateObj = new Date();
-		dateObj.setTime(date);
-		MessagesSinceVO msvo = new MessagesSinceVO();
-		msvo.setDate(dateObj);
-		msvo.setChatVO(vo);
-		logger.info(dateObj.getTime()+"");
-		logger.info("chatNewMessages");
-		
-		return messageService.readMessagesSince(msvo);	
-		
+	
+	@RequestMapping(value="/newMessages", method=RequestMethod.GET)
+	public void chatNewMessages(Model model, MessagesSinceVO vo) throws Exception{
+		model.addAttribute("messages", messageService.readMessagesSince(vo));	
 	}	
 	
 	@RequestMapping(value="/Chat", method=RequestMethod.POST)

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,7 +27,6 @@ import com.fyp.service.ChatService;
 import com.fyp.service.CommentService;
 import com.fyp.vo.BoardVO;
 import com.fyp.vo.CommentVO;
-import com.fyp.vo.MemberBoardVO;
 import com.fyp.vo.PageMaker;
 import com.fyp.vo.SearchCriteria;
 
@@ -83,7 +81,7 @@ public class BoardController {
 	@RequestMapping(value = "/list", method=RequestMethod.GET)
 	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception{
 		logger.info("list");
-		
+	
 		model.addAttribute("list", service.list(scri));
 		
 		PageMaker pageMaker = new PageMaker();

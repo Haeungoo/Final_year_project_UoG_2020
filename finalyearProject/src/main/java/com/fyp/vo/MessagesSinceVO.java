@@ -1,38 +1,38 @@
 package com.fyp.vo;
 
-import java.util.Date;
-
 public class MessagesSinceVO{
-	private Date date;
-	private ChatVO chatVO;
+	private int cno;
+	private int mno;
 	
 	
-	public Date getDate() {
-		return date;
+
+	public int getCno() {
+		return cno;
 	}
 
 
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setCno(int cno) {
+		this.cno = cno;
 	}
 
 
 
-	public ChatVO getChatVO() {
-		return chatVO;
+	public int getMno() {
+		return mno;
 	}
 
 
 
-	public void setChatVO(ChatVO chatVO) {
-		this.chatVO = chatVO;
+	public void setMno(int mno) {
+		this.mno = mno;
 	}
-	 
+
+
+
 	@Override
 	public String toString() {
-		return "MessagesSinceVO[date=" + date.toString()+ ", chatVO=" + chatVO.toString() + "]";
+		return "MessagesSinceVO[cno=" + cno + ", mno=" + mno + "]";
 	}
-
 	
 }

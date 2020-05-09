@@ -17,26 +17,43 @@ INSERT INTO FYP_BOARD(    BNO
              		   , #{writer}  )
 </insert>
 
+
+
+<select id="listRole" resultType="com.fyp.vo.MemberRoleListVO">
+SELECT M.USERROLE
+FROM FYP_BOARD B, FYP_MEMBER M
+WHERE B.WRITER = M.USERID
+</select>
+
+
+<select id="listCount" parameterType="com.fyp.vo.SearchCriteria" resultType="int">
+SELECT COUNT(FYP_BOARD.BNO) FROM FYP_BOARD
+RIGHT JOIN FYP_MEMBER ON FYP_BOARD.WRITER = FYP_MEMBER.USERID
+WHERE 1=1
+<include refid="search"></include>
+AND FYP_BOARD.BNO > 0
+</select>
+
+
 <select id="listPage" resultType="com.fyp.vo.BoardVO" parameterType="com.fyp.vo.SearchCriteria">
-SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT, HEART
+SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT, HEART, USERROLE
 FROM ( 
-		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT, HEART, ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
-		FROM FYP_BOARD
-		WHERE 1=1
-			<include refid="search"></include>
+		SELECT FYP_BOARD.*, FYP_MEMBER.USERROLE, ROW_NUMBER() OVER(ORDER BY FYP_BOARD.BNO DESC) AS RNUM
+        FROM FYP_BOARD
+        RIGHT JOIN FYP_MEMBER ON FYP_BOARD.WRITER = FYP_MEMBER.USERID
+        WHERE 1=1 
+         	<include refid="search"></include>
 ) FYP
 WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 ORDER BY BNO DESC
 </select>
 
-
-<select id="listCount" parameterType="com.fyp.vo.SearchCriteria" resultType="int">
-SELECT COUNT(BNO) FROM FYP_BOARD WHERE 1=1
-<include refid="search"></include>
-AND BNO > 0
-</select>
-
 <sql id="search">
+	<if test="role != null">
+		<if test="role == 'both'.toString()">AND (FYP_MEMBER.USERROLE = 'starter' or FYP_MEMBER.USERROLE = 'adopter')</if>
+		<if test="role == 'starter'.toString()">AND FYP_MEMBER.USERROLE = 'starter'</if>
+		<if test="role == 'adopter'.toString()">AND FYP_MEMBER.USERROLE = 'adopter'</if>	
+	</if>	
 	<if test="searchType != null">
 		<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
 		<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>

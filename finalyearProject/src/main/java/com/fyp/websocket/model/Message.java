@@ -1,9 +1,12 @@
 package com.fyp.websocket.model;
 
+import java.util.Date;
+
 public class Message {
     private String from;
     private String to;
     private String content;
+    private Date senddate;
 
     @Override
     public String toString() {
@@ -32,5 +35,11 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+    public Date getSenddate() {
+		return senddate;
+	}
+    public void setFate(Date senddate) {
+    	this.senddate = senddate;
     }
 }

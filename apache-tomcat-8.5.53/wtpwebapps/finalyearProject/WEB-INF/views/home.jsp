@@ -84,12 +84,10 @@
 				<button class="btn btn-danger" id="logoutBtn" type="button">Logout</button><br/>
 			</div>
 		</c:if>
-		
-		<!-- 
+		 
 		<c:if test="${msg == false}">
 			<p style="color: red;">Login failed! Please check your ID and Password</p>
 		</c:if>
-		-->
 	</form>
 </div>
 </body>

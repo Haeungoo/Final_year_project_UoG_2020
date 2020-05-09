@@ -39,7 +39,7 @@ h1{
 		</div>
 		<hr />
 
-		<c:if test="${member.userId != null}">
+		<c:if test="${member.userId != null && member.userRole != null}">
 
 			<h3>Photo</h3>
 			<img src="/resources/images/pengsu.PNG" alt="image" height="200px"
@@ -96,7 +96,7 @@ h1{
 
 		</c:if>
 
-		<c:if test="${member.userId == null}">
+		<c:if test="${member.userId == null && member.userRole == null}">
 			<p>You can write it after login</p>
 		</c:if>
 

@@ -11,6 +11,8 @@ public class BoardVO{
 	private int hit;
 	private int heart;
 	
+	private String userRole;
+	
 	public int getBno() {
 		return bno;
 	}
@@ -53,4 +55,11 @@ public class BoardVO{
 	public void setHeart(int heart) {
 		this.heart = heart;
 	}
+	public String getUserRole() {
+		return userRole;
+	}
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
+	
 }

@@ -8,10 +8,10 @@
 	<li><a href="/board/list">List</a></li>
 	<li><a href="/board/writeView">Write</a></li>
 	<li><a href="/chat/chatList?userId=${member.userId}&role=${member.userRole}">Chat</a></li>
-	<c:if test="${member.userId == 'sys' }">
+	<c:if test="${member.userId == 'sys' && member.userId != null }">
 	<li><a href="/member/admin">Admin</a></li>
 	</c:if>
-	<c:if test="${member.userId != 'sys' }">
+	<c:if test="${member.userId != 'sys' && member.userId != null }">
 	<li><a href="/member/profile?userId=${member.userId}&role=${member.userRole}">Profile</a></li>
 	</c:if>
 	<li>

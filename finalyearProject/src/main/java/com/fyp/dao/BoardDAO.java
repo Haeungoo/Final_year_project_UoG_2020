@@ -12,7 +12,7 @@ public interface BoardDAO {
 
 	// select the list of posts
 	public List<BoardVO> list(SearchCriteria scri) throws Exception;
-
+	
 	// total number of posts
 	public int listCount(SearchCriteria scri) throws Exception;
 
@@ -42,5 +42,7 @@ public interface BoardDAO {
 	
 	// Board Like Count
 	public void boardHeart(int bno) throws Exception;
+
+	
 
 }

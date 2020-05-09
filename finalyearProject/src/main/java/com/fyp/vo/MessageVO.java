@@ -52,7 +52,7 @@ public class MessageVO{
 
 	@Override
 	public String toString() {
-		return "MessageVO[mno=" + mno + ", cno=" + cno + ", content=" + content + ", sender=" + user1 + "]";
+		return "MessageVO[mno=" + mno + ", cno=" + cno + ", content=" + content + ", user1=" + user1 + "]";
 	}
 	 
 }

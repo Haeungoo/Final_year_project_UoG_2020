@@ -25,20 +25,36 @@ function connect() {
     var host = document.location.host;
     var pathname = document.location.pathname;
     
+    
     ws = new WebSocket("ws://" + host  + pathname + username);
 
     ws.onmessage = function(event) {
     var log = document.getElementById("log");
         console.log(event.data);
         var message = JSON.parse(event.data);
-        log.innerHTML += message.from.substring(9) + " : " + message.content + "\n";
+      //  log.innerHTML += message.from.substring(9) + "<br/>" + message.content + "<br/>"  + message.senddate +"<br/>";
     };
+    
 }
+
+window.setInterval(function(){
+	var mno = $($(".mno").last()).val();
+	var cno = '<%=request.getParameter("cno")%>';
+	$.ajax({
+		url: "newMessages?mno="+mno+"&cno="+cno,
+		type: "GET",
+		success: function(message)
+		{
+			$("#log").append(message);
+		}
+	})
+}, 500);
 
 function send() {
     var content = document.getElementById("msg").value;
     var json = JSON.stringify({
         "content":content
+		
     });
 
     var data = {};
@@ -49,7 +65,8 @@ function send() {
 	data['user1'] = sender;
 	data['content'] = document.getElementById("msg").value;
 	
-	
+	$("#msg").val("");
+	//$("#log").append("<br/><div>" + sender + ": " + content + "  <p id='sending' style='display:inline'>*</p><p id='date' style='display:inline'>" + new Date().toString() + "</p></div>");
 	
 	$.ajax({ 
 		url : "/chat/chatMessageWrite",
@@ -58,15 +75,17 @@ function send() {
 		dataType : "json",
 		success: function(data){
 			if(data){
-				alert("Success");
 			}
 			else{
-				alert("Fail");
 			}
 		}
 	})
 	
     ws.send(json);
+}
+
+function reloadPage(){
+	location.reload(true);
 }
 
 $(document).ready(function(){
@@ -75,6 +94,11 @@ $(document).ready(function(){
 		location.href = "../board/list/";
 		
 	});    
+   $("#msg").keydown(function(key){
+	  if(key.keyCode == 13){
+		  send();
+	  } 
+   });
 })
 </script>
 
@@ -82,7 +106,7 @@ $(document).ready(function(){
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 80%;
-    background-color: #1f1f1f;
+   
 }
 
 #wrapper {
@@ -221,16 +245,20 @@ p {
 
 </head>
 
-<body class="container">
+<body class="container" onload="connect();">
 	<table>
             <tr>
-                <td colspan="2">
-                    <button type="button" onclick="connect();" >Connect</button>
-                </td>
-            </tr>
-            <tr>
                 <td>
-                    <textarea readonly="readonly" rows="10" cols="80" id="log"></textarea>
+                    <div id="log">
+                    <c:forEach items="${messages}" var="message"><br/>
+					<div> 
+						<input type="hidden" class="mno" value="${message.mno}"/>
+						<c:out value="${message.user1}"/><br/>
+						<c:out value="${message.content}"/> &nbsp; &nbsp; &nbsp; &nbsp;
+						<p id='date' style='display:inline'><fmt:formatDate value="${message.senddate}" pattern="yy-MMM-dd HH:mm:ss"/></p>
+					</div>
+					</c:forEach>
+					</div>
                 </td>
             </tr>
             <tr>
