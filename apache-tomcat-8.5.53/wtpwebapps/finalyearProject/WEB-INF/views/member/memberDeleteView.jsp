@@ -6,6 +6,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
+		<link rel="stylesheet" type="text/css" href="../resources/css/member/register.css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -60,11 +62,6 @@
 				<div class="form-group has-feedback">
 					<button class="btn btn-success" type="submit" id="submit">Delete the account</button>
 					<button class="cancel btn btn-danger" type="button">Cancel</button>
-				</div>
-				<div>
-					<c:if test="${msg == false}">
-						Wrong Password. Please try again :)
-					</c:if>			
 				</div>
 		</div>
 	</body>

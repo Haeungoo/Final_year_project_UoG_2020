@@ -10,6 +10,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
+<link href="../resources/css/board/list.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -59,20 +61,23 @@ button{
 </script>
 </head>
 
-<body class="container">	
+<body>
+<div class="container">
 	<form name="chatForm" method="post" action="/chat/Chat">
-		<label>From</label>
-		<input type="text" name="user1" id="user1" value="${member.userId}" readonly="readonly"/><br/>
-		<label>To</label>
-		<input type="text" name="user2" id="user2" value="<%=request.getParameter("writer") %>" readonly="readonly"/><br/>
-	    <label>Content</label>
-	    <input type="text" name="content" id="content" placeholder="You can type or paste the voice content via Ctrl+V"/>
-	    <br/>
+	
+	<div class="form-group">
+		<label class="col-sm-2 control-label">From</label>
+		<input class="form-control" type="text" name="user1" id="user1" value="${member.userId}" readonly="readonly"/><br/>
+		<label class="col-sm-2 control-label">To</label>
+		<input class="form-control" type="text" name="user2" id="user2" value="<%=request.getParameter("writer") %>" readonly="readonly"/><br/>
+	    <label class="col-sm-2 control-label">Content</label>
+	    <input class="form-control" type="text" name="content" id="content" placeholder="You can type or paste the voice content via Ctrl+V"/>
+	</div>
 		<input class="btn btn-primary" type="button" id="voiceBtn" value="Voice" />
-		<input class="btn btn-secondary" type="button" id="copyBtn" value="Copy and Paste" />	    
-		<div id="result">
-		</div>	  
-	    <br/>
+		<input class="btn btn-secondary" type="button" id="copyBtn" value="Stop and Copy" />	    
+		
+	<div id="result" class="form-group"> 
+	</div>	  
 	    <input class="btn btn-success" type="submit" id="sendBtn" value="Send" />
 	    <input class="btn btn-danger" type="button" id="cancelBtn" value="Exit" />
 	</form>
@@ -129,5 +134,6 @@ button{
 		};
 		
 </script>
+</div>
 </body>
 </html>

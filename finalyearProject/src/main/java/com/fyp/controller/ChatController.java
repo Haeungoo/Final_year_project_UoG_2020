@@ -58,14 +58,6 @@ public class ChatController{
 		logger.info(chatVO.toString());
 		logger.info(messageService.readMessages(chatVO).size()+"");
 		model.addAttribute("messages", messageService.readMessages(chatVO));
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		
 	}
 	
 	@ResponseBody

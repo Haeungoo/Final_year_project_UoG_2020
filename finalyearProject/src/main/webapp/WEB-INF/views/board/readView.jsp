@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link href="../resources/css/board/list.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -293,14 +294,14 @@ function closeForm() {
 			<div>
 				<c:if
 					test="${member.userId == read.writer || member.userId == 'sys'}">
-					<button type="button" class="update_btn btn btn-white">Update</button>
-					<button type="button" class="delete_btn btn btn-white">Delete</button>
+					<button type="button" class="update_btn btn btn-light">Update</button>
+					<button type="button" class="delete_btn btn btn-danger">Delete</button>
 				</c:if>
 
-				<button type="button" class="list_btn btn btn-white">List</button>
-				<button type="button" class="save_btn btn btn-white">Save</button>
-				<button type="button" class="btn btn-white" onclick="openForm()">Report</button>
-				<button type="button" class="like_btn btn btn-white"><i class="fas fa-heart"> Like</i></button>
+				<button type="button" class="list_btn btn btn-light">List</button>
+				<button type="button" class="save_btn btn btn-light">Save</button>
+				<button type="button" class="btn btn-light" onclick="openForm()">Report</button>
+				<button type="button" class="like_btn btn btn-light"><i class="fas fa-heart"> Like</i></button>
 
 				<div class="form-popup" id="myForm">
 					<form class="form-container">
@@ -329,9 +330,9 @@ function closeForm() {
 							<div>
 								<c:if
 									test="${member.userId == commentList.writer || member.userId == 'sys'}">
-									<button type="button" class="commentUpdateBtn btn btn-white"
+									<button type="button" class="commentUpdateBtn btn btn-primary"
 										data-rno="${commentList.rno}">Update</button>
-									<button type="button" class="commentDeleteBtn btn btn-white"
+									<button type="button" class="commentDeleteBtn btn btn-danger"
 										data-rno="${commentList.rno}">Delete</button>
 								</c:if>
 							</div>
@@ -365,7 +366,7 @@ function closeForm() {
 
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="button" class="commentWriteBtn btn btn-white">Submit</button>
+						<button type="button" class="commentWriteBtn btn btn-success">Submit</button>
 					</div>
 				</div>
 			</form>

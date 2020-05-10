@@ -7,6 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
+<link rel="stylesheet" type="text/css" href="../resources/css/member/register.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>	
@@ -63,6 +65,8 @@
  				<div class="valid-feedback">Valid.</div>
 				<div class="invalid-feedback">Please fill out Password field.</div>
  			</div>
+ 			
+ 			<div class="form-group">
  			<label for="userRole">Role</label><br/>
 				<div class="form-check">
 					<label>
@@ -76,6 +80,7 @@
  						<img src="../resources/images/adopter.jpg" alt="adopter" height="200px" width="200px" />
  					</label>
  				</div>
+ 			</div>
 			<div class="form-group">
 				<button class="btn btn-primary" type="submit" id="submit">Register</button>
 				<button class="cancel btn btn-danger" type="button">Cancel</button>

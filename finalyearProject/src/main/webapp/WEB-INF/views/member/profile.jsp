@@ -7,16 +7,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
+<link href="../resources/css/board/profile.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
 h1{
 	text-align:center;
@@ -25,7 +22,7 @@ h1{
 </head>
 <body>
 	<div class="container">
-
+		<div class="row">
 		<div>
 			<h1>
 				<a href="/board/list">Board</a>
@@ -40,14 +37,16 @@ h1{
 		<hr />
 
 		<c:if test="${member.userId != null && member.userRole != null}">
-
+    		<div class="col-sm-4">
 			<h3>Photo</h3>
 			<img src="/resources/images/pengsu.PNG" alt="image" height="200px"
 				width="200px" />
 			<h3>UserID : ${member.userId}</h3>
 			<h3>UserRole : ${member.userRole}</h3>
+			</div>
+			
+			<div class="col-sm-8">
 			<h3>Saved Posts</h3>
-
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -69,7 +68,9 @@ h1{
 					</tr>
 				</c:forEach>
 			</table>
-
+			
+			<br/><br/>
+			
 			<h3>Your Posts</h3>
 			<table class="table table-hover">
 				<thead>
@@ -92,14 +93,14 @@ h1{
 					</tr>
 				</c:forEach>
 			</table>
-
+			</div>
 
 		</c:if>
 
 		<c:if test="${member.userId == null && member.userRole == null}">
 			<p>You can write it after login</p>
 		</c:if>
-
+		</div>
 	</div>
 </body>
 </html>

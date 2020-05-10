@@ -8,6 +8,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
+<link href="../resources/css/chat/chatView2.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -66,7 +69,6 @@ function send() {
 	data['content'] = document.getElementById("msg").value;
 	
 	$("#msg").val("");
-	//$("#log").append("<br/><div>" + sender + ": " + content + "  <p id='sending' style='display:inline'>*</p><p id='date' style='display:inline'>" + new Date().toString() + "</p></div>");
 	
 	$.ajax({ 
 		url : "/chat/chatMessageWrite",
@@ -91,7 +93,7 @@ function reloadPage(){
 $(document).ready(function(){
    $("#cancelBtn").on("click", function(){
       	
-		location.href = "../board/list/";
+		location.href = "../board/list";
 		
 	});    
    $("#msg").keydown(function(key){
@@ -103,172 +105,57 @@ $(document).ready(function(){
 </script>
 
 <style>
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 80%;
-   
-}
-
-#wrapper {
-    width: 960px;
-    margin: auto;
-    text-align: left;
-    color: #d9d9d9;
-}
-
-p {
-    text-align: left;
-}
-
-.button {
-    display: inline;
-    color: #fff;
-    background-color: #f2791d;
-    padding: 8px;
-    margin: auto;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    box-shadow: none;
-    border: none;
-}
-
-.button:hover {
-    background-color: #ffb15e;
-}
-.button a, a:visited, a:hover, a:active {
-    color: #fff;
-    text-decoration: none;
-}
-
-#addDevice {
-    text-align: center;
-    width: 960px;
-    margin: auto;
-    margin-bottom: 10px;
-}
-
-#addDeviceForm {
-    text-align: left;
-    width: 400px;
-    margin: auto;
-    padding: 10px;
-}
-
-#addDeviceForm span {
-    display: block;
-}
-
-#content {
-    margin: auto;
-    width: 960px;
-}
-
-.device {
-    width: 180px;
-    height: 110px;
-    margin: 10px;
-    padding: 16px;
-    color: #fff;
-    vertical-align: top;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    display: inline-block;
-}
-
-.device.off {
-    background-color: #c8cccf;
-}
-
-.device span {
-    display: block;
-}
-
-.deviceName {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.removeDevice {
-    margin-top: 12px;
-    text-align: center;
-}
-
-.device.Appliance {
-    background-color: #5eb85e;
-}
-
-.device.Appliance a:hover {
-    color: #a1ed82;
-}
-
-.device.Electronics {   
-    background-color: #0f90d1;
-}
-
-.device.Electronics a:hover {
-    color: #4badd1;
-}
-
-.device.Lights {
-    background-color: #c2a00c;
-}
-
-.device.Lights a:hover {
-    color: #fad232;
-}
-
-.device.Other {
-    background-color: #db524d;
-}
-
-.device.Other a:hover {
-    color: #ff907d;
-}
-
-.device a {
-    text-decoration: none;
-}
-
-.device a:visited, a:active, a:hover {
-    color: #fff;
-}
-
-.device a:hover {
-    text-decoration: underline;
-}
-
 
 </style>
 
 </head>
 
 <body class="container" onload="connect();">
-	<table>
-            <tr>
-                <td>
-                    <div id="log">
-                    <c:forEach items="${messages}" var="message"><br/>
-					<div> 
-						<input type="hidden" class="mno" value="${message.mno}"/>
-						<c:out value="${message.user1}"/><br/>
-						<c:out value="${message.content}"/> &nbsp; &nbsp; &nbsp; &nbsp;
-						<p id='date' style='display:inline'><fmt:formatDate value="${message.senddate}" pattern="yy-MMM-dd HH:mm:ss"/></p>
-					</div>
-					</c:forEach>
-					</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" size="51" id="msg" placeholder="Message"/>
-                    <button type="button" id="sendBtn" onclick="send();" >Send</button>
-                    <input type="button" id="cancelBtn" value="Exit" />
-                </td>
-            </tr>
-        </table>
+	<div id="chat-room">
+		<div class="message-box">
+				<table>
+		            <tr>
+		                <td>
+		                    <div id="log">
+		                    <c:forEach items="${messages}" var="message"><br/> 
+		      
+		                    <div class="message-group" data-date-str="<fmt:formatDate value="${message.senddate}" pattern="MMM dd, yyyy"/>">
+							<c:set var="sender" value='<%=request.getParameter("sender")%>'/>
+							<c:if test="${sender != message.user1 }">
+							<div class="chat-message other">
+								<section><i class="fa fa-user"></i></section>
+								<input type="hidden" class="mno" value="${message.mno}"/>
+								<span id="user"><c:out value="${message.user1}"/></span><br/>
+								<div id="content"><c:out value="${message.content}"/></div> &nbsp; &nbsp; &nbsp; &nbsp;
+								<p id='date' style='display:inline'><fmt:formatDate value="${message.senddate}" pattern="HH:mm"/></p>
+							</div>
+							</c:if>
+							<c:if test="${sender == message.user1 }">
+							<div class="chat-message mine">
+								<section><i class="fa fa-user"></i></section>
+								<input type="hidden" class="mno" value="${message.mno}"/>
+								<span id="user"><c:out value="${message.user1}"/></span><br/>
+								<div id="content"><c:out value="${message.content}"/></div>
+								<p id='date' style='display:inline'><fmt:formatDate value="${message.senddate}" pattern="HH:mm"/></p>
+							</div>
+							</c:if>
+							</div>
+							</c:forEach>
+							</div>
+		                </td>
+		            </tr>
+		            <tr>
+		                <td>
+		                	<div class="input-box">
+		                    <input type="text" size="51" id="msg" placeholder="Message"/>
+		                    <button type="button" id="sendBtn" onclick="send();" >Send</button>
+		                    <input type="button" id="cancelBtn" value="Exit" />
+		                	</div>
+		                </td>
+		            </tr>
+		    	</table>
+    		</div>
+    	</div>
 </body>
 
 </html>

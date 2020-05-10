@@ -116,17 +116,6 @@ public class MemberController {
 	// delete (POST)
 	@RequestMapping(value = "/memberDelete", method = RequestMethod.POST)
 	public String memberDelete(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-
-		String sessionPw = member.getUserPw();
-
-		String voPw = vo.getUserPw();
-
-		if (!(sessionPw.equals(voPw))) {
-			rttr.addFlashAttribute("msg", false);
-			return "redirect:/member/memberDeleteView";
-		}
-
 		service.memberDelete(vo);
 		session.invalidate();
 		return "redirect:/";

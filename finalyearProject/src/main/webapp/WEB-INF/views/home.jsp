@@ -10,12 +10,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
+<link href="../resources/css/home.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
 </head>
 <div class="container">
 
@@ -35,6 +35,12 @@
 		
 		$(".delete").on("click", function(){
 			location.href = "member/memberDeleteView";
+		});
+		
+		$("#loginBtn").keydown(function(key){
+			if(key.keyCode == 13){
+				submit();
+			} 
 		});
 	
 	})
@@ -67,26 +73,21 @@
 		</c:if>
 		
 		<c:if test="${member != null}">	
-			<c:if test = "${member == sys}" >
-			<div>
-				
-			</div>
-			</c:if>
 			<div class="container">
-				<p>Welcome, user ${member.userId}</p>
+				<p id="afterlogin">Welcome, user ${member.userId}</p>
 				<c:if test="${member.userId == 'sys'}">
 				<a href="/member/admin">Admin</a>
 				</c:if>
 				<c:if test="${member.userId != 'sys'}">
-				<button class="btn btn-success" id="memberUpdateBtn" type="button">Modify user information</button><br/>
-				<button class="delete btn btn-warning" type="button">Withdraw from the website</button><br/>
+				<button class="modify btn btn-success" id="memberUpdateBtn" type="button">Modify user information</button><br/>
+				<button class="delete btn btn-warning" id="memberDeleteBtn" type="button">Withdraw from the website</button><br/>
 				</c:if>
 				<button class="btn btn-danger" id="logoutBtn" type="button">Logout</button><br/>
 			</div>
 		</c:if>
 		 
 		<c:if test="${msg == false}">
-			<p style="color: red;">Login failed! Please check your ID and Password</p>
+			<p id="failMsg">Login failed! Please check your ID and Password</p>
 		</c:if>
 	</form>
 </div>
