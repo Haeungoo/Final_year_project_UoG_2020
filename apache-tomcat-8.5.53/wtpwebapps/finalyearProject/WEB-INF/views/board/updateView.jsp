@@ -109,7 +109,7 @@
 							<div>	
 								<input type="hidden" id="FILE_NO" name="FILE_NO_${var.index}" value="${file.FILE_NO}"/>
 								<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index}"/>
-								<button id="fileDel" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">Delete</button><br>
+								<button id="fileDel" class="btn btn-danger" onclick="fn_del('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">Delete</button><br>
 							</div>
 						</c:forEach>
 					</div>

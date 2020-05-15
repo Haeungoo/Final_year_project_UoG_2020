@@ -60,14 +60,14 @@ public class BoardController {
 	}
 	
 	
-	//form of the post
+	// Form Of The Post
 	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
 	public void writeView() throws Exception{
 		logger.info("writeView");
 		
 	}
 	
-	//create a post
+	// Create A Post
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(BoardVO boardVO, MultipartHttpServletRequest fypRequest) throws Exception{
 		logger.info("write");	
@@ -77,7 +77,7 @@ public class BoardController {
 	}
 
 	
-	//select the list of posts
+	// Select The List Of Posts
 	@RequestMapping(value = "/list", method=RequestMethod.GET)
 	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception{
 		logger.info("list");
@@ -94,7 +94,7 @@ public class BoardController {
 	}
 	
 	
-	//select the post
+	// Select The Post
 	@RequestMapping(value="/readView", method=RequestMethod.GET)
 	public String read(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
 		logger.info("read");
@@ -110,7 +110,7 @@ public class BoardController {
 		return "board/readView";
 	}
 	
-	//Update View
+	// Update View
 	@RequestMapping(value="/updateView", method=RequestMethod.GET)
 	public String updateView(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
 		logger.info("updateView");
@@ -123,7 +123,7 @@ public class BoardController {
 		return "board/updateView";
 	}
 	
-	//Update 
+	// Update 
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, 
 			RedirectAttributes rttr, 
@@ -136,13 +136,14 @@ public class BoardController {
 		
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("role", scri.getRole());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 	
 		return "redirect:/board/list";
 	}
 
-	//delete the post
+	// Delete The Post
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		logger.info("delete");
@@ -151,13 +152,14 @@ public class BoardController {
 		
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("role", scri.getRole());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 		
 		return "redirect:/board/list";
 	}
 	
-	//insert the comment
+	// Insert The Comment
 	@RequestMapping(value="/commentWrite", method=RequestMethod.POST)
 	public String commentWrite(CommentVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		logger.info("comment Write");
@@ -167,13 +169,14 @@ public class BoardController {
 		rttr.addAttribute("bno",vo.getBno());
 		rttr.addAttribute("page",scri.getPage());
 		rttr.addAttribute("perPageNum",scri.getPerPageNum());
+		rttr.addAttribute("role", scri.getRole());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 		
 		return "redirect:/board/readView";
 	}
 	
-	//Comment Update (GET)
+	// Comment Update (GET)
 	@RequestMapping(value="/commentUpdateView", method=RequestMethod.GET)
 	public String commentUpdateView(CommentVO vo, SearchCriteria scri, Model model) throws Exception{
 		logger.info("comment Update");
@@ -184,7 +187,7 @@ public class BoardController {
 		return "board/commentUpdateView";
 	}
 	
-	//Comment Update (POST)
+	// Comment Update (POST)
 	@RequestMapping(value="/commentUpdate", method=RequestMethod.POST)
 	public String commentUpdate(CommentVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		logger.info("comment Update");
@@ -193,14 +196,16 @@ public class BoardController {
 		
 		rttr.addAttribute("bno", vo.getBno());
 		rttr.addAttribute("page", scri.getPage());
-		rttr.addAttribute("perPageNum", scri.getPerPageNum());	
+		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("role", scri.getRole());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
+		
 		
 		return "redirect:/board/readView";
 	}
 
-	//Comment Delete (GET)
+	// Comment Delete (GET)
 	@RequestMapping(value="/commentDeleteView", method=RequestMethod.GET)
 	public String commentDeleteView(CommentVO vo, SearchCriteria scri, Model model) throws Exception{
 		logger.info("comment Delete");
@@ -211,7 +216,7 @@ public class BoardController {
 		return "board/commentDeleteView";
 	}
 	
-	//Comment Delete (POST)
+	// Comment Delete (POST)
 	@RequestMapping(value="/commentDelete", method=RequestMethod.POST)
 	public String commentDelete(CommentVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		logger.info("comment Delete");
@@ -221,13 +226,14 @@ public class BoardController {
 		rttr.addAttribute("bno", vo.getBno());
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("role", scri.getRole());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 	
 		return "redirect:/board/readView";
 	}
 	
-	//File download (Reference: https://melonpeach.tistory.com/53?category=806570)
+	// File Download (Reference: https://melonpeach.tistory.com/53?category=806570)
 	@RequestMapping(value="/fileDown")
 	public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception{
 		Map<String, Object> resultMap = service.selectFileInfo(map);
@@ -246,7 +252,7 @@ public class BoardController {
 	}
 
 	
-	//like the post
+	// Like The Post
 	@RequestMapping(value = "/like", method = RequestMethod.POST)
 	public String like(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception{
 		logger.info("like");
@@ -255,6 +261,7 @@ public class BoardController {
 		
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("role", scri.getRole());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 		

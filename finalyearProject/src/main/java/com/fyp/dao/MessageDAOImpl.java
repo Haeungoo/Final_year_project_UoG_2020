@@ -24,11 +24,11 @@ public class MessageDAOImpl implements MessageDAO{
 		return sqlSession.selectList("messageMapper.readMessages", vo);
 	}
 	
+	//select the messages since the date
 	public List<MessageVO> readMessagesSince(MessagesSinceVO vo) throws Exception{
 		return sqlSession.selectList("messageMapper.readMessagesSince", vo);
 	}
 
-	
 	//insert the message
 	@Override
 	public void writeMessage(MessageVO vo) throws Exception{

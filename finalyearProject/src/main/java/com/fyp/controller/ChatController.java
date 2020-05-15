@@ -2,7 +2,6 @@ package com.fyp.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -47,19 +46,20 @@ public class ChatController{
 		return "/chat/home";
 	}
 	
+	// Voice To Text Chat View
 	@RequestMapping(value="/chatView", method=RequestMethod.GET)
 	public void chatView() throws Exception{
 		logger.info("chatView");
 	}
 	
+	// Live Chat View
 	@RequestMapping(value="/chatView2", method=RequestMethod.GET)
 	public void chatView2(Locale locale, Model model, ChatVO chatVO) throws Exception{
 		logger.info("chatView2");
-		logger.info(chatVO.toString());
-		logger.info(messageService.readMessages(chatVO).size()+"");
 		model.addAttribute("messages", messageService.readMessages(chatVO));
 	}
 	
+	// Save Messages
 	@ResponseBody
 	@RequestMapping(value="/chatMessageWrite", method=RequestMethod.POST)
 	public boolean chatMessageWrite(MessageVO vo) throws Exception{
@@ -70,12 +70,13 @@ public class ChatController{
 		return true;
 	}
 	
-	
+	// Restore Previous Messages
 	@RequestMapping(value="/newMessages", method=RequestMethod.GET)
 	public void chatNewMessages(Model model, MessagesSinceVO vo) throws Exception{
 		model.addAttribute("messages", messageService.readMessagesSince(vo));	
 	}	
 	
+	// Start A New Chat And Save The Messages
 	@RequestMapping(value="/Chat", method=RequestMethod.POST)
 	public String Chat(ChatVO chatVO, MessageVO messageVO) throws Exception{
 		logger.info("Chat");
@@ -88,6 +89,8 @@ public class ChatController{
 		return "redirect:/board/list";
 		
 	}
+	
+	// Chat List
 	@RequestMapping(value="/chatList", method=RequestMethod.GET)
 	public String chatList(Model model, MemberVO vo) throws Exception{
 		logger.info("chatList");

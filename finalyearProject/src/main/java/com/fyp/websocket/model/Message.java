@@ -2,6 +2,8 @@ package com.fyp.websocket.model;
 
 import java.util.Date;
 
+//Reference >> https://github.com/eugenp/tutorials/tree/master/java-websocket/src/main/java/com/baeldung/websocket
+
 public class Message {
     private String from;
     private String to;

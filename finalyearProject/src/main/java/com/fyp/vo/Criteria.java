@@ -1,5 +1,7 @@
 package com.fyp.vo;
 
+//Reference : https://melonpeach.tistory.com/27?category=806570
+
 public class Criteria{
 	private int page;
 	private int perPageNum;

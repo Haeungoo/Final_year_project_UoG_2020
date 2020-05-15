@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
 <html>
@@ -11,15 +10,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
-<link href="../resources/css/home.css" rel="stylesheet" type="text/css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="../resources/css/board/list.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<div class="container">
-
-</div>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#logoutBtn").on("click", function(){
@@ -42,13 +37,14 @@
 				submit();
 			} 
 		});
-	
+		
+		$('[data-toggle="tooltip"]').tooltip();
 	})
 </script>
 <body>
 <div class="container">
 	<header>
-		<h1><a href="/board/list">Board</a></h1>
+		<h1><a href="/board/list" data-toggle="tooltip" data-placement="right" title="Press it if you want to go to the bulletin board">Board</a></h1>
 	</header>
 	<hr />
 	
@@ -75,13 +71,8 @@
 		<c:if test="${member != null}">	
 			<div class="container">
 				<p id="afterlogin">Welcome, user ${member.userId}</p>
-				<c:if test="${member.userId == 'sys'}">
-				<a href="/member/admin">Admin</a>
-				</c:if>
-				<c:if test="${member.userId != 'sys'}">
 				<button class="modify btn btn-success" id="memberUpdateBtn" type="button">Modify user information</button><br/>
 				<button class="delete btn btn-warning" id="memberDeleteBtn" type="button">Withdraw from the website</button><br/>
-				</c:if>
 				<button class="btn btn-danger" id="logoutBtn" type="button">Logout</button><br/>
 			</div>
 		</c:if>

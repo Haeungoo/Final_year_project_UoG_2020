@@ -7,6 +7,8 @@ import javax.websocket.EndpointConfig;
 import com.google.gson.Gson;
 import com.fyp.websocket.model.Message;
 
+//Reference >> https://github.com/eugenp/tutorials/tree/master/java-websocket/src/main/java/com/baeldung/websocket
+
 public class MessageEncoder implements Encoder.Text<Message> {
 
     private static Gson gson = new Gson();

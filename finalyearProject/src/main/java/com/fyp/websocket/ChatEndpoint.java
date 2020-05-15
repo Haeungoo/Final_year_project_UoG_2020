@@ -1,10 +1,7 @@
 package com.fyp.websocket;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -18,6 +15,8 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.fyp.websocket.model.Message;
+
+// Reference >> https://github.com/eugenp/tutorials/tree/master/java-websocket/src/main/java/com/baeldung/websocket
 
 @ServerEndpoint(value = "/chat/{username}", decoders = MessageDecoder.class, encoders = MessageEncoder.class)
 public class ChatEndpoint {

@@ -1,12 +1,10 @@
 body{
-	background-color:#C3D6BD; 
+	background-color:#C3D6BD;
 }
 a{
 	color: black;
 }
-.form-group{
-	font-size: 20px;
-}
+
 #loginBtn{
 	background-color: #5F8151;
 	color: white;
@@ -14,10 +12,6 @@ a{
 }
 #failMsg{
 	color: #9B3D3D; 
-	font-size: 20px;
-}
-#afterlogin{
-	font-size: 20px;
 }
 #memberUpdateBtn{
 	background-color: #5F8151;

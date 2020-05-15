@@ -1,0 +1,130 @@
+body{
+	overflow-y:hidden;
+}
+body, html {
+	background-color:#C3D6BD; 
+    height:100%;
+    font-size:20px; 
+    
+}
+#chat-room {
+    height:100%;
+    background-color:#C3D6BD;
+    outline:2px solid black;
+    position:relative;
+}
+#chat-room .message-box {
+    padding:0 0.7rem;
+    overflow-y:scroll;
+    height:calc(100% - 4.4rem);
+}
+
+#chat-room .message-group::before {
+    content:attr(data-date-str);
+    display:block;
+    background-color:rgba(0,0,0,0.15);
+    border-radius:1rem;
+    text-align:center;
+    padding:0.3rem 0;
+    color:white;
+    font-size:1.6rem;
+}
+#chat-room .chat-message {
+    margin-left:3rem;
+    position:relative;
+}
+#chat-room .chat-message > section {
+    position:absolute;
+    top:0;
+    left:-3rem;
+}
+#chat-room .chat-message > span {
+    display:block;
+}
+
+#chat-room .chat-message > section {
+    font-size:3rem;
+}
+#chat-room .chat-message::after {
+    content:"";
+    display:block;
+    clear:both;
+}
+#chat-room .chat-message > div {
+    background-color:white;
+    float:left;
+    padding:0.8rem;
+    border-radius:1rem;
+    clear:both;
+    font-weight:bold;
+    font-size:1.46rem;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+#chat-room .chat-message.mine > span {
+    display:none;
+}
+
+#chat-room .chat-message.mine > section {
+    display:none;
+}
+
+#chat-room .input-box {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+}
+#chat-room .input-box #msg {
+    width:100%;
+    display:block;
+    border:0;
+    outline:none;
+    padding-right:8.5rem;
+    padding-left:4.8rem;
+    padding-top:0.1rem;
+    font-size:1.4rem;
+    line-height:4rem;
+    font-weight:bold;
+    box-sizing:border-box;
+}
+#chat-room .input-box #sendBtn{
+    position:absolute;
+    right:1rem;
+    top:50%;
+    right:18%;
+    transform:translateY(-50%);
+    padding:10px;
+    background-color:#fdf01b;
+    padding:10px;
+    color:black;
+    border-radius:3px;
+    font-size:1.3rem;
+    box-shadow:0 1px 10px rgba(0,0,0,0.2);
+    user-select:none;
+}
+#chat-room .input-box #cancelBtn {
+    position:absolute;
+    right:1rem;
+    top:50%;
+    transform:translateY(-50%);
+    padding:10px;
+    background-color:#fdf01b;
+    padding:10px;
+    color:black;
+    border-radius:3px;
+    font-size:1.3rem;
+    box-shadow:0 1px 10px rgba(0,0,0,0.2);
+    user-select:none;
+}
+#user{
+	font-size: 20px;
+}
+
+#chat-room .chat-message.mine > div {
+    background-color:#FDF01B;
+    float:right;
+    box-shadow: -1px 1px 0 rgba(0,0,0,0.3);
+}
+
+
+

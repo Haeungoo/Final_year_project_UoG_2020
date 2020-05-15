@@ -11,16 +11,16 @@ public interface BoardService{
 	// create a post
 	public void write(BoardVO boardVO, MultipartHttpServletRequest fypRequest) throws Exception;
 	
-	//select the list of posts
+	// select the list of posts
 	public List<BoardVO> list(SearchCriteria scri) throws Exception;
 	
-	//total number of posts
+	// total number of posts
 	public int listCount(SearchCriteria scri) throws Exception;
 	
-	//select the post
+	// select the post
 	public BoardVO read(int bno) throws Exception;
 	
-	//update the post
+	// update the post
 	public void update(BoardVO boardVO) throws Exception;
 	
 	//delete the post

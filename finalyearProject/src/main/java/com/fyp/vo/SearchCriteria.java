@@ -26,7 +26,7 @@ public class SearchCriteria extends Criteria{
 	}
 	@Override
 	public String toString() {
-		return "SearchCriteria [searchType="+ searchType + ", keyword="+ keyword + ", role="+ role + "]";
+		return "SearchCriteria [role="+role+", searchType="+ searchType + ", keyword="+ keyword + "]";
 	}
 	
 }

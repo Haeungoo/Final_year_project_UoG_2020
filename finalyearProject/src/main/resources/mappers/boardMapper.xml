@@ -18,14 +18,6 @@ INSERT INTO FYP_BOARD(    BNO
 </insert>
 
 
-
-<select id="listRole" resultType="com.fyp.vo.MemberRoleListVO">
-SELECT M.USERROLE
-FROM FYP_BOARD B, FYP_MEMBER M
-WHERE B.WRITER = M.USERID
-</select>
-
-
 <select id="listCount" parameterType="com.fyp.vo.SearchCriteria" resultType="int">
 SELECT COUNT(FYP_BOARD.BNO) FROM FYP_BOARD
 RIGHT JOIN FYP_MEMBER ON FYP_BOARD.WRITER = FYP_MEMBER.USERID
@@ -50,7 +42,6 @@ ORDER BY BNO DESC
 
 <sql id="search">
 	<if test="role != null">
-		<if test="role == 'both'.toString()">AND (FYP_MEMBER.USERROLE = 'starter' or FYP_MEMBER.USERROLE = 'adopter')</if>
 		<if test="role == 'starter'.toString()">AND FYP_MEMBER.USERROLE = 'starter'</if>
 		<if test="role == 'adopter'.toString()">AND FYP_MEMBER.USERROLE = 'adopter'</if>	
 	</if>	

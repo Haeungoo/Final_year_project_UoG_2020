@@ -1,3 +1,6 @@
+
+// Reference >> https://www.youtube.com/watch?v=ABoCeLjY0Xo 
+
 class SpeechRecognitionApi{
 	constructor(options){
 		const SpeechToText = window.speechRecognition || window.webkitSpeechRecogniton;

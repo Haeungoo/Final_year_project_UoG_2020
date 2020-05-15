@@ -8,16 +8,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 	<link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
 	<link href="../resources/css/board/list.css" rel="stylesheet" type="text/css">
-	<link href="../resources/css/board/list.css" rel="stylesheet" type="text/css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	
-		
 	<title>Board</title>
 	</head>
 	<script type="text/javascript">
-	// Validation check (https://melonpeach.tistory.com/26?category=806570)
 	$(document).ready(function(){
 		var formObj = $("form[name='writeForm']");
 		$(".write_btn").on("click",function(){ 
@@ -29,6 +25,8 @@
 			formObj.submit();
 		});
 		fn_addFile();
+		
+		$('[data-toggle="tooltip"]').tooltip();
 	})
 	
 	function fn_addFile(){
@@ -44,7 +42,7 @@
 	<body>
 		<div class="container">
 			<header>
-				<h1><a href="/board/list">Board</a></h1>
+				<h1><a href="/board/list" data-toggle="tooltip" data-placement="right" title="Press it if you want to go to the bulletin board">Board</a></h1>
 			</header>
 			<hr/>
 		

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fyp.vo.BoardVO;
 
+// Reference >> https://melonpeach.tistory.com/51?category=806570
 @Component("fileUtils")
 public class FileUtils{
 	private static final String filePath = "C:\\fyp\\file\\"; // the location to save the file

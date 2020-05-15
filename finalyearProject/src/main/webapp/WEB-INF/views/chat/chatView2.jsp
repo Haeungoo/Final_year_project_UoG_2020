@@ -32,7 +32,7 @@ function connect() {
     ws = new WebSocket("ws://" + host  + pathname + username);
 
     ws.onmessage = function(event) {
-    var log = document.getElementById("log");
+   		var log = document.getElementById("log");
         console.log(event.data);
         var message = JSON.parse(event.data);
       //  log.innerHTML += message.from.substring(9) + "<br/>" + message.content + "<br/>"  + message.senddate +"<br/>";

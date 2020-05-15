@@ -48,7 +48,7 @@ public class MemberController {
 				return "/member/register";
 			} else if (result == 0) {
 				String inputPass = vo.getUserPw();
-				String pwd = pwdEncoder.encode(inputPass);
+				String pwd = pwdEncoder.encode(inputPass); // encryption
 				vo.setUserPw(pwd);
 
 				service.register(vo);

@@ -20,7 +20,14 @@
 		//cancel
 		$(".cancel").on("click",function(){
 			location.href = "/";
-		})
+		});
+		
+		$(".register").keydown(function(key){
+			if(key.keyCode == 13){
+				submit();
+			} 
+		});
+		
 		
 	
 	})
@@ -56,7 +63,7 @@
 				<input class="form-control" onchange="fn_idChk();" type="text" id="userId" name="userId" required/>
 				<div id="valid" class="valid-feedback">Valid.</div>
 				<div id="invalid" class="invalid-feedback">Please fill out ID field.</div>
-				<div id="duplicate" style="display:none" class="invalid-feedback">The same ID exists</div>
+				<div id="duplicate" style="display:none;" class="invalid-feedback">The same ID exists</div>
 			</div>
 			
  			<div class="form-group">
@@ -82,7 +89,7 @@
  				</div>
  			</div>
 			<div class="form-group">
-				<button class="btn btn-primary" type="submit" id="submit">Register</button>
+				<button class="register btn btn-primary" type="submit" id="submit">Register</button>
 				<button class="cancel btn btn-danger" type="button">Cancel</button>
 			</div>
 		 </form>
