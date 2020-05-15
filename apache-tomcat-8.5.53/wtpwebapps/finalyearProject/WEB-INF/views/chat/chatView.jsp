@@ -73,15 +73,15 @@ button{
 	    <label class="col-sm-2 control-label">Content</label>
 	    <input class="form-control" type="text" name="content" id="content" placeholder="You can type or paste the voice content via Ctrl+V"/>
 	</div>
-		<input class="btn btn-primary" type="button" id="voiceBtn" value="Voice" />
-		<input class="btn btn-secondary" type="button" id="copyBtn" value="Stop and Copy" />	    
+	
+		<input class="btn btn-primary" type="button" id="voiceBtn"  value="Voice" />
+		<input class="btn btn-secondary" type="button" id="copyBtn" onclick="CopyBtn('result')" value="Copy" />	    
 		
-	<div id="result" class="form-group"> 
+	<div id="result" class="result form-group"> 
 	</div>	  
 	    <input class="btn btn-success" type="submit" id="sendBtn" value="Send" />
 	    <input class="btn btn-danger" type="button" id="cancelBtn" value="Exit" />
 	</form>
-	
 	<script type="text/javascript">
 		var r = document.getElementById('result');
 		var speechRecognizer = new webkitSpeechRecognition();
@@ -91,12 +91,12 @@ button{
 			if('webkitSpeechRecognition' in window){
 				var speechRecognizer = new webkitSpeechRecognition();
 				recognizing = true;
-				speechRecognizer.continuous = true;
+				speechRecognizer.continuous = false;
 				speechRecognizer.interimResults = true;
-				speechRecognizer.lang = 'en-UK';
+				//speechRecognizer.lang = 'en-UK';
+				speechRecognizer.lang = 'en-US';
 				//speechRecognizer.lang = 'ko-KR';
 				speechRecognizer.start();
-
 				
 				var finalTranscripts = '';
 				
@@ -122,16 +122,21 @@ button{
 			
 		};
 	
-		//https://www.google.com/intl/en/chrome/demos/speech.html
-		
-		function copyBtn(){
-			if(recognizing){
-				recognizing = false;
-				speechRecognizer.stop();
-			}
-			alert("Scroll the text. Press Control-C to copy text.");
-			
-		};
+		// Reference : https://stackoverflow.com/questions/36639681/how-to-copy-text-from-a-div-to-clipboard
+		function CopyBtn(containerid) {
+			  if (document.selection) {
+			    var range = document.body.createTextRange();
+			    range.moveToElementText(document.getElementById(containerid));
+			    range.select().createTextRange();
+			    document.execCommand("copy");
+			  } else if (window.getSelection) {
+			    var range = document.createRange();
+			    range.selectNode(document.getElementById(containerid));
+			    window.getSelection().addRange(range);
+			    document.execCommand("copy");
+			    alert("Text has been copied, now paste in the Content");
+			  }
+			};
 		
 </script>
 </div>
