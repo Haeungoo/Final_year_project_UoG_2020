@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link rel="shortcut icon" type="image/png" href="../resources/images/pengsu.PNG"/>
-<link href="../resources/css/board/list.css" rel="stylesheet" type="text/css">
+<link href="../resources/css/home.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -71,9 +71,14 @@
 		<c:if test="${member != null}">	
 			<div class="container">
 				<p id="afterlogin">Welcome, user ${member.userId}</p>
+				<c:if test="${member.userId == 'sys'}">
+				<button class="btn btn-danger" id="logoutBtn" type="button">Logout</button><br/>
+				</c:if>
+				<c:if test="${member.userId != 'sys'}">
 				<button class="modify btn btn-success" id="memberUpdateBtn" type="button">Modify user information</button><br/>
 				<button class="delete btn btn-warning" id="memberDeleteBtn" type="button">Withdraw from the website</button><br/>
 				<button class="btn btn-danger" id="logoutBtn" type="button">Logout</button><br/>
+				</c:if>
 			</div>
 		</c:if>
 		 

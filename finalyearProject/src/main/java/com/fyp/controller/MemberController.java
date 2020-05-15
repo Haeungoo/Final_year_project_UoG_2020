@@ -69,12 +69,18 @@ public class MemberController {
 
 		session.getAttribute("member");
 		MemberVO login = service.login(vo);
-		boolean pwdMatch = pwdEncoder.matches(vo.getUserPw(), login.getUserPw());
+		int idMatch = service.idChk(vo);
+		if(idMatch != 0) {
+			boolean pwdMatch = pwdEncoder.matches(vo.getUserPw(), login.getUserPw());
+			if (login != null && pwdMatch == true) {
+				session.setAttribute("member", login);
 
-		if (login != null && pwdMatch == true) {
-			session.setAttribute("member", login);
-
-		} else {
+			} else {
+				session.setAttribute("member", null);
+				rttr.addFlashAttribute("msg", false);
+			}
+		}
+		else {
 			session.setAttribute("member", null);
 			rttr.addFlashAttribute("msg", false);
 		}
