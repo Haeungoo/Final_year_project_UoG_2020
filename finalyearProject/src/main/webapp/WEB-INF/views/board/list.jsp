@@ -50,7 +50,7 @@ $(document).ready(function(){
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<!-- <td><c:out value="${list.bno}"/></td> -->
-					<c:if test="${list.bno != 0}">
+					
 					<td>
 						<a href="/board/readView?bno=${list.bno}&page=${scri.page}&perPageNum=${scri.perPageNum}&role=${scri.role}&searchType=${scri.searchType}&keyword=${scri.keyword}"><c:out value="${list.title}"/></a>
 					</td>
@@ -63,7 +63,7 @@ $(document).ready(function(){
 					<td><fmt:formatDate value="${list.regdate}" pattern="dd-MM-yyyy" /></td>
 					<td><c:out value="${list.hit}" /></td>
 					<td><c:out value="${list.heart}" /></td>
-					</c:if>
+					
 				</tr>
 			</c:forEach>
 			

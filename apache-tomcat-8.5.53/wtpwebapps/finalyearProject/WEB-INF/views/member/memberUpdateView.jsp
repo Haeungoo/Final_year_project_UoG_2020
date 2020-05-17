@@ -43,6 +43,7 @@
 							
 						}else{
 							alert("Wrong Password");
+							$("#userPw").val("");
 							return;
 							
 						}

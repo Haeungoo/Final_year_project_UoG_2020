@@ -5,11 +5,6 @@ body{
 .form-group{
 	font-size: 20px;
 }
-li {
-	list-style: none;
-	float: left;
-	padding: 6px;
-}
 a{
 	color: black;
 }
@@ -20,4 +15,8 @@ a{
 }
 #afterlogin {
 	font-size : 20px;
+}
+li {
+	list-style: left;
+	padding: 6px;
 }

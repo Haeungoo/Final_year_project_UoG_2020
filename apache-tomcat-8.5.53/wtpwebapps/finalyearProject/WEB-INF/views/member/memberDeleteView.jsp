@@ -19,7 +19,7 @@
 			//Cancel
 			$(".cancel").on("click", function(){
 				location.href="/";
-			})
+			});
 			
 			$("#submit").on("click", function(){
 				if($("#userPw").val()==""){
@@ -27,7 +27,7 @@
 					$("#userPw").focus();
 					return false;
 				}
-				$.ajax({ //https://melonpeach.tistory.com/44?category=806570
+				$.ajax({
 					url : "/member/passChk",
 					type : "POST",
 					dataType : "json",
@@ -39,6 +39,7 @@
 							}
 						}else{
 							alert("Wrong Password");
+							$("#userPw").val("");
 							return;
 						}	
 					}				

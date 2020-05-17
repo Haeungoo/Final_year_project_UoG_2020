@@ -148,8 +148,7 @@ $(document).ready( function() {
 
 	// list
 	$(".report_btn").on("click", function() {
-		if ("${member.userId}" == undefined
-				|| "${member.userId}" == "") {
+		if ("${member.userId}" == undefined|| "${member.userId}" == "") {
 			alert("Please login to report the post");
 			return;
 		}
@@ -317,20 +316,18 @@ function closeForm() {
 			</div>
 
 			<!-- comment -->
-			<div class="container" id="comment">
+			<div id="comment">
 				<ol class="commentList">
 					<c:forEach items="${commentList}" var="commentList">
-						<li style="padding-top: 0px; margin-top: 50px">
+						<li style="padding-top: 0px; margin-top: 50px; display: block;">
 							<p>
-								Writer: ${commentList.writer}<br /> Date:
-								<fmt:formatDate value="${commentList.regdate}"
-									pattern="dd-MM-yyyy" />
+								Writer: ${commentList.writer}<br/> 
+								Date: <fmt:formatDate value="${commentList.regdate}" pattern="dd-MM-yyyy" /><br/>
 							</p>
-
 							<p>${commentList.content}</p>
+							
 							<div>
-								<c:if
-									test="${member.userId == commentList.writer || member.userId == 'sys'}">
+								<c:if test="${member.userId == commentList.writer || member.userId == 'sys'}">
 									<button type="button" class="commentUpdateBtn btn btn-primary"
 										data-rno="${commentList.rno}">Update</button>
 									<button type="button" class="commentDeleteBtn btn btn-danger"
