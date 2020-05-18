@@ -86,6 +86,10 @@ public class ChatController{
 			messageVO.setCno(chatservice.getChat(chatVO).getCno());
 			messageService.writeMessage(messageVO);
 		}
+		else {
+			messageVO.setCno(chatservice.getChat(chatVO).getCno());
+			messageService.writeMessage(messageVO);
+		}
 		return "redirect:/board/list";
 		
 	}
